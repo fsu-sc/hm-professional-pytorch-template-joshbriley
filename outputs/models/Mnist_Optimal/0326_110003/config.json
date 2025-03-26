@@ -1,0 +1,55 @@
+{
+    "name": "Mnist_Optimal",
+    "n_gpu": 1,
+    "arch": {
+        "type": "MnistModel",
+        "args": {
+            "input_size": 28,
+            "output_size": 10,
+            "hidden_layers": [
+                128,
+                64
+            ],
+            "dropout": 0.2
+        }
+    },
+    "data_loader": {
+        "type": "MnistDataLoader",
+        "args": {
+            "data_dir": "./data",
+            "batch_size": 128,
+            "shuffle": true,
+            "validation_split": 0.2,
+            "num_workers": 4
+        }
+    },
+    "optimizer": {
+        "type": "Adam",
+        "args": {
+            "lr": 0.001,
+            "weight_decay": 0.0001,
+            "amsgrad": true
+        }
+    },
+    "lr_scheduler": {
+        "type": "StepLR",
+        "args": {
+            "step_size": 10,
+            "gamma": 0.7
+        }
+    },
+    "loss": "nll_loss",
+    "metrics": [
+        "accuracy",
+        "top_k_acc"
+    ],
+    "trainer": {
+        "epochs": 30,
+        "save_dir": "outputs/",
+        "save_period": 5,
+        "verbosity": 2,
+        "monitor": "min val_loss",
+        "early_stop": 5,
+        "tensorboard": true
+    }
+}

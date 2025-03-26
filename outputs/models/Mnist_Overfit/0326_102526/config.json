@@ -1,0 +1,46 @@
+{
+    "name": "Mnist_Overfit",
+    "n_gpu": 1,
+    "arch": {
+        "type": "DynamicModel",
+        "args": {}
+    },
+    "data_loader": {
+        "type": "MnistDataLoader",
+        "args": {
+            "data_dir": "./data",
+            "batch_size": 16,
+            "shuffle": true,
+            "validation_split": 0.01,
+            "num_workers": 2
+        }
+    },
+    "optimizer": {
+        "type": "Adam",
+        "args": {
+            "lr": 0.01,
+            "weight_decay": 0
+        }
+    },
+    "lr_scheduler": {
+        "type": "StepLR",
+        "args": {
+            "step_size": 1,
+            "gamma": 1.0
+        }
+    },
+    "loss": "nll_loss",
+    "metrics": [
+        "accuracy",
+        "top_k_acc"
+    ],
+    "trainer": {
+        "epochs": 100,
+        "save_dir": "outputs/",
+        "save_period": 10,
+        "verbosity": 2,
+        "monitor": "min val_loss",
+        "early_stop": 0,
+        "tensorboard": true
+    }
+}
