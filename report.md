@@ -401,6 +401,109 @@ Loss Graphs:
 
 ## Analysis and Documentation 
 
+### Underfit Configuration
+
+**Characteristics:**
+- Low number of epochs (e.g., `10`)
+- Learning rate: `0.001`
+- Small batch size
+- Large validation split
+- Simple model (few hidden layers/neurons)
+- Early stopping enabled
+
+**Performance Observed:**
+- Training and validation losses remain high
+- Model fails to capture data patterns
+
+**Interpretation:**
+- Model is too simple or lacks training time
+- Underfits the training data
+
+**Recommendations:**
+- Increase model complexity (more layers or neurons)
+- Increase number of training epochs
+- Possibly reduce early stopping sensitivity
+- Reduce validation split to train on more data
+
+---
+
+### Overfit Configuration
+
+**Characteristics:**
+- Very small validation split (e.g., `0.01`)
+- High learning rate: `0.01`
+- Small batch size (e.g., `16`)
+- Long training (e.g., `100` epochs)
+- No early stopping
+
+**Performance Observed:**
+- Very low training loss
+- High  validation loss
+
+**Interpretation:**
+- Model memorizes training data but fails to generalize
+- Classic overfitting behavior
+
+**Recommendations:**
+- Lower the learning rate
+- Use a larger validation split
+- Add regularization (dropout, weight decay)
+- Enable early stopping to prevent overtraining
+
+---
+
+### Optimal Configuration
+
+**Characteristics:**
+- Balanced batch size (e.g., `64`)
+- Learning rate: `0.0005`
+- Moderate weight decay
+- Reasonable number of epochs (e.g., `20`)
+- Validation split: `0.1`
+- Early stopping enabled
+- Learning rate scheduler used
+
+**Performance Observed:**
+- Both training and validation loss decrease steadily
+- Validation loss stays close to training loss
+
+**Interpretation:**
+- Model generalizes well
+- Good balance between bias and variance
+
+**Recommendations:**
+- Use this configuration as the default for future runs
+- Experiment with other optimizers (e.g., AdamW, Lookahead)
+- Consider adding dropout or batch normalization for further robustness
+
+---
+
+### config.json
+
+**Characteristics:**
+- Baseline or template configuration
+- May not be fully tuned
+
+**Performance Observed:**
+- Intermediate performance (not clearly best or worst)
+
+**Interpretation:**
+- Serves as a scaffold for experimentation
+
+**Recommendations:**
+- Use this config as a starting point and tune parameters
+
+---
+
+### Final Recommendations
+
+- Stick with **`optimal.json`** for the best performance
+- Use **cross-validation** instead of a fixed split for robustness
+- Monitor additional metrics (e.g., accuracy, MAE, F1-score)
+- Add **regularization techniques** to fine-tune generalization
+---
+
+
 ```
 # Jupyter Notebook: notebooks/analysis.ipynb
 
